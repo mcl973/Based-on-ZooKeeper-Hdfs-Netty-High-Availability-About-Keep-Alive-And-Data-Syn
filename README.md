@@ -28,7 +28,7 @@ src/main/java/Zookeeper/ZooKeeper_Nio/Client.java
 
 getSendname() ---》发送者的名字
 
-getCode() ---》 事件代码（0,1,2,3,4）
+getCode() ---》 事件代码（0,1,2,3,4,11,12,13）
 
 getData() ---》 数据，没有事自动填充为null
 
