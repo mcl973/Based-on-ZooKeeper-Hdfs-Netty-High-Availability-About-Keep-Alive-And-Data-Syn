@@ -30,8 +30,13 @@ public class ArgsInfo {
 
     //默认的线程池的线程数，使用的是netty的参数，默认是cpu核数的2倍
 //    protected static final int Default_Thread_Number = Math.max(1, SystemPropertyUtil.getInt("io.netty.eventLoopThreads", NettyRuntime.availableProcessors()));
-//    统计了一下，总共的线程一共三个，其中两个是固定不变的，另一个是可变的
-    public static final int Default_Thread_Number = 5;
+//    io密集型
+    /**
+     *  根据公式：线程数 = ncpu*（1+w/c），其中ncpu是指的是cpu的核数，w指的是等待是事件wait time，c指的是计算compute。
+     *  如果是计算密集型的那么这里的就是c>>w,那么w/c就是接近于0，那么线程数就是ncpu。
+     *  如果是io密集型的那么这里的就是w>>c,那么w/c就是大于1 的那么线程数可以近似为2*ncpu。
+     */
+    public static final int Default_Thread_Number = Runtime.getRuntime().availableProcessors()*2;
 //    Object和byte[]互转时byte数组的大小
     public final static int ObjectToByteSize = 1024;
 //    hdfs的块大小
